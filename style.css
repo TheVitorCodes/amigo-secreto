@@ -257,6 +257,13 @@ Mobile */
         width: 100%;
         justify-content: center;
     }
+
+    .button-clear {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
 }
 
 /* tablets */
@@ -290,6 +297,10 @@ Mobile */
     button {
         padding: 12px 25px;
     }
+
+    .button-clear {
+        padding: 12px 25px;
+
 }
 
 /* notebooks */
@@ -313,4 +324,8 @@ Mobile */
     button {
         padding: 15px 30px;
     }
-}
+
+    .button-clear {
+        padding: 15px 30px;
+    }
+}}
