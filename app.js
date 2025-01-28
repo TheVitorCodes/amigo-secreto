@@ -41,6 +41,11 @@ function sortearAmigo() {
         let resultadoDiv = document.getElementById('resultado');
         resultadoDiv.innerHTML = `<p>${capitalizar(amigoSorteado)}</p>`;
 
+        resultadoDiv.classList.add('animated');
+        setTimeout(() => {
+            resultadoDiv.classList.remove('animated');
+        }, 500);
+
         let hideButton = document.createElement('button');
         hideButton.innerText = 'Ocultar Resultado';
         hideButton.classList.add('hide-button');

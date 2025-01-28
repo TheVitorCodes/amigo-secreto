@@ -3,7 +3,7 @@
     --color-secondary: #fbf9f5;
     --color-tertiary: #5e7ce9;
     --color-button: #5e7ce9;
-    --color-button-hover: #04faa0;
+    --color-button-hover: #00f2ff;
     --color-text: #040404;
     --color-white: #000000;
 }
@@ -17,7 +17,7 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(to top, var(--color-primary) 50%, #f39c12);
+    background: linear-gradient(to bottom, #8796e3, var(--color-primary) 50%, #1e2150);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@ body {
 /* Seção de entrada */
 .input-section {
     flex: 60%;
-    background: linear-gradient(to bottom, var(--color-secondary), #bd9e6c);
+    background: rgb(161, 183, 243);
     border: 1px solid #575757ac;
     border-radius: 64px 64px 0 0;
     display: flex;
@@ -68,7 +68,7 @@ body {
     font-family: "Londrina Solid", serif;
     font-size: 39px;
     font-weight: 700;
-    color: var(--color-primary);
+    color: rgb(54, 54, 224);
     margin: 10px 0;
     text-align: center;
 }
@@ -123,13 +123,14 @@ button {
 .button-add {
     background-color: var(--color-tertiary);
     color: var(--color-text);
+    font-weight: 600;
     border-radius: 0 25px 25px 0;
     box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.551);
     transition: background-color 0.3s ease;  
 }
 
 .button-add:hover {
-    background-color: #04faa0;
+    background-color: #00f2ff;
 }
 
 /* Estilo do botão de ocultar resultado */
@@ -147,13 +148,14 @@ button {
 }
 
 .hide-button:hover {
-    background-color: #d17b03;  
+    background-color: #545353;  
 }
 
 .button-clear {
-    background-color: #b95820;
+    background-color: #fefefe;
     width: 300px; 
     justify-content: center;
+    font-weight: 600;
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 25px;
@@ -165,7 +167,7 @@ button {
 }
 
 .button-clear:hover {
-    background-color: #ff0000; 
+    background-color: #00f2ff; 
 }
 
 
@@ -191,6 +193,7 @@ ul {
 /* Botão de sortear título */
 .button-draw {
     display: flex;
+    font-weight: 600;
     align-items: center;
     width: 100%;
     padding: 10px 40px;
@@ -205,6 +208,33 @@ ul {
 
 .button-draw:hover {
     background-color: var(--color-button-hover);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.result-list p {
+    animation: pop 0.5s ease;
 }
 
 /* Responsividade 
