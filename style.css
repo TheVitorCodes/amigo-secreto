@@ -47,7 +47,7 @@ h1 {
 
 .input-section {
     flex: 60%;
-    background: rgba(161, 183, 243, 0.352);
+    background: rgba(161, 183, 243, 0.037);
     border: 1px solid #ffffffac;
     border-radius: 35px;
     display: flex;
@@ -57,6 +57,7 @@ h1 {
     padding: 20px;
     width: 100%;
     box-shadow: var(--box-shadow);
+    backdrop-filter: blur(8px);
 }
 
 .main-title {
