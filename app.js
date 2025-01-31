@@ -79,9 +79,16 @@ function capitalizar(nome) {
     return nome.charAt(0).toUpperCase() + nome.slice(1);
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById("background-video");
+    if (video) {
+        video.playbackRate = 0.7; 
+    }
+
 let input = document.querySelector("input");
 input.addEventListener("keyup", function (event) {
   if (event.key === "Enter") {
     adicionarAmigo();
   }
+});
 });
