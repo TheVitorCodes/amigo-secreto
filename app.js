@@ -1,5 +1,7 @@
 let listaDeAmigos = [];
-let amigosSorteados = [];
+let pessoasQueJaSortearam = []; // Lista de pessoas que já realizaram o sorteio
+let amigosSorteados = []; // Lista de amigos que já foram sorteados
+let sorteandoValidado = false;
 
 function adicionarAmigo() {
     let amigo = document.getElementById("amigo").value.trim();
@@ -20,42 +22,92 @@ function adicionarAmigo() {
     document.getElementById('amigo').value = '';
     atualizarListaDeAmigos();
 
-    if (listaDeAmigos.length > 0) {
-        document.getElementById('resultado').innerHTML = '';
+    // Atualiza o estado do botão de sortear
+    atualizarBotaoSortear();
+}
+
+function validarSorteando() {
+    let nome = document.getElementById("sorteando").value.trim().toLowerCase();
+
+    if (nome === '') {
+        alert('Por favor, insira seu nome!');
+        return;
     }
+
+    if (!listaDeAmigos.includes(nome)) {
+        alert('Você não está na lista de amigos!');
+        return;
+    }
+
+    // Verifica se a pessoa já realizou um sorteio
+    if (pessoasQueJaSortearam.includes(nome)) {
+        alert('Você já realizou um sorteio!');
+        return;
+    }
+
+    sorteandoValidado = true;
+    alert('Nome validado! Agora você pode sortear.');
+
+    // Atualiza o estado do botão de sortear
+    atualizarBotaoSortear();
 }
 
 function sortearAmigo() {
-    if (listaDeAmigos.length > 0) {
-        if (amigosSorteados.length === listaDeAmigos.length) {
-            document.getElementById('resultado').innerHTML = 'Todos os amigos já foram sorteados!';
-            return;
-        }
-
-        let amigoSorteado;
-        do { 
-            amigoSorteado = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)];
-        } while (amigosSorteados.includes(amigoSorteado));
-
-        amigosSorteados.push(amigoSorteado);
-        let resultadoDiv = document.getElementById('resultado');
-        resultadoDiv.innerHTML = `<p>${capitalizar(amigoSorteado)}</p>`;
-
-        resultadoDiv.classList.add('animated');
-        setTimeout(() => {
-            resultadoDiv.classList.remove('animated');
-        }, 500);
-
-        let hideButton = document.createElement('button');
-        hideButton.innerText = 'Ocultar Resultado';
-        hideButton.classList.add('hide-button');
-        hideButton.onclick = function() {
-            resultadoDiv.innerHTML = '';
-        };
-        resultadoDiv.appendChild(hideButton);
-    } else {
-        document.getElementById('resultado').innerHTML = 'Adicione amigos para sortear!';
+    if (!sorteandoValidado) {
+        alert('Por favor, valide seu nome antes de sortear!');
+        return;
     }
+
+    let sorteando = document.getElementById("sorteando").value.trim().toLowerCase();
+
+    // Verifica se a pessoa já realizou um sorteio
+    if (pessoasQueJaSortearam.includes(sorteando)) {
+        alert('Você já realizou um sorteio!');
+        return;
+    }
+
+    // Filtra a lista para remover o nome da pessoa que está sorteando
+    let amigosDisponiveis = listaDeAmigos.filter(nome => nome !== sorteando);
+
+    if (amigosDisponiveis.length === 0) {
+        alert('Não há amigos disponíveis para sortear!');
+        return;
+    }
+
+    // Sorteia um nome aleatório
+    let amigoSorteado = amigosDisponiveis[Math.floor(Math.random() * amigosDisponiveis.length)];
+
+    // Adiciona o nome do amigo sorteado à lista de amigos sorteados
+    amigosSorteados.push(amigoSorteado);
+
+    // Exibe o resultado
+    let resultadoDiv = document.getElementById('resultado');
+    resultadoDiv.innerHTML = `<p>${capitalizar(amigoSorteado)}</p>`;
+
+    // Animação (opcional)
+    resultadoDiv.classList.add('animated');
+    setTimeout(() => {
+        resultadoDiv.classList.remove('animated');
+    }, 500);
+
+    // Botão para ocultar o resultado
+    let hideButton = document.createElement('button');
+    hideButton.innerText = 'Ocultar Resultado';
+    hideButton.classList.add('hide-button');
+    hideButton.onclick = function() {
+        resultadoDiv.innerHTML = '';
+    };
+    resultadoDiv.appendChild(hideButton);
+
+    // Adiciona o nome do sorteador à lista de pessoas que já sortearam
+    pessoasQueJaSortearam.push(sorteando);
+
+    // Limpa o campo "Seu nome" após o sorteio
+    document.getElementById("sorteando").value = '';
+    sorteandoValidado = false;
+
+    // Atualiza o estado do botão de sortear
+    atualizarBotaoSortear();
 }
 
 function atualizarListaDeAmigos() {
@@ -70,25 +122,48 @@ function atualizarListaDeAmigos() {
 
 function limparLista() {
     listaDeAmigos = [];
-    amigosSorteados = [];
+    pessoasQueJaSortearam = []; // Limpa a lista de pessoas que já sortearam
+    amigosSorteados = []; // Limpa a lista de amigos sorteados
+    sorteandoValidado = false;
     atualizarListaDeAmigos();
     document.getElementById('resultado').innerHTML = 'A lista foi limpa!';
+
+    // Atualiza o estado do botão de sortear
+    atualizarBotaoSortear();
 }
 
 function capitalizar(nome) {
     return nome.charAt(0).toUpperCase() + nome.slice(1);
 }
 
+function atualizarBotaoSortear() {
+    let sortearButton = document.getElementById('sortearButton');
+    if (listaDeAmigos.length >= 2 && sorteandoValidado) {
+        sortearButton.disabled = false;
+    } else {
+        sortearButton.disabled = true;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("background-video");
+    let video = document.getElementById("background-video");
     if (video) {
-        video.playbackRate = 0.7; 
+        video.playbackRate = 0.7;
     }
 
-let input = document.querySelector("input");
-input.addEventListener("keyup", function (event) {
-  if (event.key === "Enter") {
-    adicionarAmigo();
-  }
-});
+    // Evento para o campo "Digite um nome" (adicionarAmigo)
+    let inputAmigo = document.getElementById("amigo");
+    inputAmigo.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            adicionarAmigo();
+        }
+    });
+
+    // Evento para o campo "Seu nome" (validarSorteando)
+    let inputSorteando = document.getElementById("sorteando");
+    inputSorteando.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            validarSorteando();
+        }
+    });
 });
