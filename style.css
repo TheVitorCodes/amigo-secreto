@@ -176,7 +176,7 @@ button {
 }
 
 .button-draw img {
-    margin-right: 21px; /* Espaçamento à direita da imagem */
+    margin-right: 21px;
 }
 
 .button-draw:hover {
@@ -272,12 +272,20 @@ ul {
 @media (min-width: 601px) and (max-width: 1024px) {
     .main-content {
         flex-direction: column;
+        align-items: center;
         width: 100%;
+    }
+
+    .header-banner {
+        flex: none;
+        width: 100%;
+        text-align: center;
     }
 
     .input-section {
         flex: none;
         width: 80%;
+        margin-top: 20px;
     }
 
     .main-title {
@@ -302,17 +310,23 @@ ul {
 
     .button-clear {
         padding: 12px 25px;
-
+    }
 }
 
 /* notebooks */
 @media (min-width: 1025px) and (max-width: 1440px) {
     .main-content {
         flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .header-banner {
+        flex: 1;
+        margin-right: 40px;
     }
 
     .input-section {
-        flex: 60%;
+        flex: 1;
     }
 
     .main-title {
@@ -330,4 +344,4 @@ ul {
     .button-clear {
         padding: 15px 30px;
     }
-}}
+}

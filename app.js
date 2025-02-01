@@ -1,6 +1,6 @@
 let listaDeAmigos = [];
-let pessoasQueJaSortearam = []; // Lista de pessoas que já realizaram o sorteio
-let amigosSorteados = []; // Lista de amigos que já foram sorteados
+let pessoasQueJaSortearam = []; 
+let amigosSorteados = [];
 let sorteandoValidado = false;
 
 function adicionarAmigo() {
@@ -22,7 +22,6 @@ function adicionarAmigo() {
     document.getElementById('amigo').value = '';
     atualizarListaDeAmigos();
 
-    // Atualiza o estado do botão de sortear
     atualizarBotaoSortear();
 }
 
@@ -39,7 +38,6 @@ function validarSorteando() {
         return;
     }
 
-    // Verifica se a pessoa já realizou um sorteio
     if (pessoasQueJaSortearam.includes(nome)) {
         alert('Você já realizou um sorteio!');
         return;
@@ -48,7 +46,6 @@ function validarSorteando() {
     sorteandoValidado = true;
     alert('Nome validado! Agora você pode sortear.');
 
-    // Atualiza o estado do botão de sortear
     atualizarBotaoSortear();
 }
 
@@ -60,13 +57,11 @@ function sortearAmigo() {
 
     let sorteando = document.getElementById("sorteando").value.trim().toLowerCase();
 
-    // Verifica se a pessoa já realizou um sorteio
     if (pessoasQueJaSortearam.includes(sorteando)) {
         alert('Você já realizou um sorteio!');
         return;
     }
 
-    // Filtra a lista para remover o nome da pessoa que está sorteando
     let amigosDisponiveis = listaDeAmigos.filter(nome => nome !== sorteando);
 
     if (amigosDisponiveis.length === 0) {
@@ -74,23 +69,18 @@ function sortearAmigo() {
         return;
     }
 
-    // Sorteia um nome aleatório
     let amigoSorteado = amigosDisponiveis[Math.floor(Math.random() * amigosDisponiveis.length)];
 
-    // Adiciona o nome do amigo sorteado à lista de amigos sorteados
     amigosSorteados.push(amigoSorteado);
 
-    // Exibe o resultado
     let resultadoDiv = document.getElementById('resultado');
     resultadoDiv.innerHTML = `<p>${capitalizar(amigoSorteado)}</p>`;
 
-    // Animação (opcional)
     resultadoDiv.classList.add('animated');
     setTimeout(() => {
         resultadoDiv.classList.remove('animated');
     }, 500);
 
-    // Botão para ocultar o resultado
     let hideButton = document.createElement('button');
     hideButton.innerText = 'Ocultar Resultado';
     hideButton.classList.add('hide-button');
@@ -99,14 +89,11 @@ function sortearAmigo() {
     };
     resultadoDiv.appendChild(hideButton);
 
-    // Adiciona o nome do sorteador à lista de pessoas que já sortearam
     pessoasQueJaSortearam.push(sorteando);
 
-    // Limpa o campo "Seu nome" após o sorteio
     document.getElementById("sorteando").value = '';
     sorteandoValidado = false;
 
-    // Atualiza o estado do botão de sortear
     atualizarBotaoSortear();
 }
 
@@ -122,13 +109,12 @@ function atualizarListaDeAmigos() {
 
 function limparLista() {
     listaDeAmigos = [];
-    pessoasQueJaSortearam = []; // Limpa a lista de pessoas que já sortearam
-    amigosSorteados = []; // Limpa a lista de amigos sorteados
+    pessoasQueJaSortearam = [];
+    amigosSorteados = [];
     sorteandoValidado = false;
     atualizarListaDeAmigos();
     document.getElementById('resultado').innerHTML = 'A lista foi limpa!';
 
-    // Atualiza o estado do botão de sortear
     atualizarBotaoSortear();
 }
 
@@ -151,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
         video.playbackRate = 0.7;
     }
 
-    // Evento para o campo "Digite um nome" (adicionarAmigo)
     let inputAmigo = document.getElementById("amigo");
     inputAmigo.addEventListener("keyup", function (event) {
         if (event.key === "Enter") {
@@ -159,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Evento para o campo "Seu nome" (validarSorteando)
     let inputSorteando = document.getElementById("sorteando");
     inputSorteando.addEventListener("keyup", function (event) {
         if (event.key === "Enter") {
